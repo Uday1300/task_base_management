@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #e6f7ff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    h1 {
+        text-align: center;
+        font-family: 'Pacifico', cursive;
+        color: #2c3e50;
+        font-size: 3em;
+        margin-top: 50px;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    form {
+        max-width: 500px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+    
+    button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    small {
+        display: block;
+        margin-top: 8px;
+        color: #777;
+    }
+    
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    #register {
+        background-color: #3498db;
+    }
+    
+    #login {
+        background-color: #e74c3c;
+    }
+    
+    .button-container button:first-child {
+        margin-right: 10px;
+    }
+    
+       
+</style>
+<body>
+
+<h1>Quantum Connect</h1>
+
+<form id="registrationForm" action="/users" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="time">Time (HH:MM:SS):</label>
+    <input type="text" id="time" name="time" pattern="[0-2][0-9]:[0-5][0-9]:[0-5][0-9]" required>
+    <small>Format: HH:MM:SS</small><br>
+
+    <div class="button-container">
+        <button type="button" id="register" onclick="registerUser()">Register</button>
+        <button type="button" id="login" onclick="loginUser()">Login</button>
+    </div>
+</form>
+
+<script>
+    function registerUser() {
+        // Fetch form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            time: document.getElementById('time').value
+        };        
+        fetch('/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if ('error' in data) {
+                alert('Error: ' + data.error);
+            } else {
+                alert('User registered successfully!');
+                window.location.href = '/login';
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error.message);
+            alert('Error: Failed to register user');
+        });
+    }
+
+
+    function loginUser() {
+        window.location.href = '/login';
+    }
+
+</script>
+
+</body>
+</html>

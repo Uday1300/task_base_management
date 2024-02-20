@@ -1,0 +1,44 @@
+Validation error: strptime() argument 0 must be str, not <class 'list'>
+Traceback (most recent call last):
+  File "/home/uday/Downloads/FlaskUserLogin-uday/user.py", line 48, in validate_user_data
+    input_time = time.strptime(['time'], "%H:%M:%S")
+  File "/usr/lib/python3.10/_strptime.py", line 562, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "/usr/lib/python3.10/_strptime.py", line 317, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'list'>
+Validation error: strptime() argument 0 must be str, not <class 'list'>
+Traceback (most recent call last):
+  File "/home/uday/Downloads/FlaskUserLogin-uday/user.py", line 48, in validate_user_data
+    input_time = time.strptime(['time'], "%H:%M:%S")
+  File "/usr/lib/python3.10/_strptime.py", line 562, in _strptime_time
+    tt = _strptime(data_string, format)[0]
+  File "/usr/lib/python3.10/_strptime.py", line 317, in _strptime
+    raise TypeError(msg.format(index, type(arg)))
+TypeError: strptime() argument 0 must be str, not <class 'list'>
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving user: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Error retrieving users: 1146 (42S02): Table 'userRegistration.usermodel' doesn't exist
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds
+Time difference exceeds 30 seconds

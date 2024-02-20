@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Employee Details Form</h1>
+    <div class="container">
+        <form id="employeeDetailsForm" onsubmit="return validateForm()" method="post">
+            <!-- Personal Information Form -->
+            <div class="form-container">
+                <h2>Personal Information</h2>
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="employeeID" >Employee ID:</label>
+                <input type="text" id="employeeID" name="employeeID" required >
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="nationality">Nationality:</label>
+                <input type="text" id="nationality" name="nationality" required>
+            </div>
+
+            <!-- Contact Information Form -->
+            <div class="form-container">
+                <h2>Contact Information</h2>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="3" required></textarea>
+
+                <label for="phone">Phone number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="email">Email address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <!-- Employment Details Form -->
+            <div class="form-container">
+                <h2>Employment Details</h2>
+                <label for="jobTitle" >Job Title:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required >
+
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" required >
+
+                <label for="dateOfHire">Date of Hire:</label>
+                <input type="date" id="dateOfHire" name="dateOfHire" required >
+
+                <label for="employmentStatus">Employment Status:</label>
+                <select id="employmentStatus" name="employmentStatus" required>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="contract">Contract</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="reportingManager">Reporting Manager:</label>
+                <input type="text" id="reportingManager" name="reportingManager" required >
+
+                <!-- Compensation Information -->
+                <label for="salary">Salary:</label>
+                <input type="text" id="salary" name="salary" required >
+
+                <label for="payFrequency">Pay Frequency:</label>
+                <select id="payFrequency" name="payFrequency" required>
+                    <option value="monthly">Monthly</option>
+                    <option value="bi-weekly">Bi-weekly</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="bonus">Bonus Information:</label>
+                <input type="text" id="bonus" name="bonus" required >
+
+                <label for="benefits">Benefits Information:</label>
+                <textarea id="benefits" name="benefits" rows="3"></textarea>
+
+                <!-- Work Location -->
+                <label for="workLocation">Work Location:</label>
+                <input type="text" id="workLocation" name="workLocation" required >
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Personal Information validation
+            var fullName = document.getElementById("fullName").value;
+            if (fullName.trim() === "") {
+                alert("Please enter your full name.");
+                return false;
+            }
+    
+            // Contact Information validation
+            var email = document.getElementById("email").value;
+            var emailRegex = /^\S+@\S+\.\S+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+    
+            // Employment Details validation
+            var jobTitle = document.getElementById("jobTitle").value;
+            if (jobTitle.trim() === "") {
+                alert("Please enter your job title.");
+                return false;
+            }
+    
+            // Create a JSON object with form data
+            var formData = {
+                "full_name": fullName,
+                "employee_id": document.getElementById("employeeID").value,
+                "gender": document.getElementById("gender").value,
+                "dob": document.getElementById("dob").value,
+                "nationality": document.getElementById("nationality").value,
+                "address": document.getElementById("address").value,
+                "phone": document.getElementById("phone").value,
+                "email": email,
+                "job_title": jobTitle,
+                "department": document.getElementById("department").value,
+                "date_of_hire": document.getElementById("dateOfHire").value,
+                "employment_status": document.getElementById("employmentStatus").value,
+                "reporting_manager": document.getElementById("reportingManager").value,
+                "salary": document.getElementById("salary").value,
+                "pay_frequency": document.getElementById("payFrequency").value,
+                "bonus": document.getElementById("bonus").value,
+                "benefits": document.getElementById("benefits").value,
+                "work_location": document.getElementById("workLocation").value
+            };
+    
+            // Send data to backend
+            sendData(formData);
+    
+            // Prevent form submission
+            return false;
+        }
+    
+        function sendData(formData) {
+            fetch('/empDetails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                return response.json(); // Parse response body as JSON
+            })
+            .then(data => {
+                // Handle success response
+                alert(data.message); // Show success message
+                // Redirect to home page or any other desired action
+            })
+            .catch(error => {
+                // Handle fetch errors
+                console.error('There was a problem with the fetch operation:', error);
+                alert('An error occurred while processing your request.');
+            });
+        }
+    </script>
+    
+</body>
+</html>

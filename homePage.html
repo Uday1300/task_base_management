@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-Based Management System</title>
+    <style>
+        :root {
+            --text-color: #333;
+            --primary-color: #007bff;
+            --background-color: #f2f2f2;
+            --box-shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+        }
+
+        header, nav, main, div {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px var(--box-shadow-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        h2, p, label {
+            color: var(--text-color);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+        }
+
+        input, textarea, select {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .header, .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 0 10px var(--box-shadow-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            overflow: hidden;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+        #taskList table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        #taskList th, #taskList td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        #taskList th {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+        
+        #taskList tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        #taskList tbody tr:hover {
+            background-color: #ddd;
+        }
+        
+    </style>
+</head>
+
+
+<body>
+    <header class="header">
+    <div>
+        <p>Welcome, <span id="username" style="color: var(--primary-color);">Loading...</span>!</p>
+        <a href="#profile">Profile</a> |
+        <a href="javascript:logoutfunc()">Logout</a> 
+    </div>
+</header>
+
+<nav class="navbar">
+    <a href="javascript:emp_details()">Employee Details</a>
+    <a href="javascript:task_details()">My Task Details</a>
+</nav>
+
+<main>
+    <div>
+        <h2>Quick Task Entry</h2>
+        <form action="#" method="post" id="taskForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" required>
+
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority" required>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+
+            <button type="button" onclick="addTask()">Add Task</button>
+        </form>
+    </div>
+    <div id="taskList">
+        <table>
+            <!-- Table contents will be dynamically added by JavaScript -->
+        </table>
+    </div>
+    
+    
+</main>
+
+<script>
+    function logoutfunc(){
+        window.location.href = '/login';
+    }
+
+    function task_details() {
+        window.location.href = '/taskDetails';
+    }
+    
+    function addTask() {
+        // Get form values
+        var title = document.getElementById("title").value;
+        var description = document.getElementById("description").value;
+        var dueDate = document.getElementById("dueDate").value;
+        var priority = document.getElementById("priority").value;
+    
+        // Create FormData object
+        var formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('dueDate', dueDate);
+        formData.append('priority', priority);
+    
+        // Create a new table row
+        var taskRow = document.createElement("tr");
+    
+        // Create table cells for each task property
+        var titleCell = document.createElement("td");
+        titleCell.textContent = title;
+    
+        var descriptionCell = document.createElement("td");
+        descriptionCell.textContent = description;
+    
+        var dueDateCell = document.createElement("td");
+        dueDateCell.textContent = dueDate;
+    
+        var priorityCell = document.createElement("td");
+        priorityCell.textContent = priority;
+    
+        // Append cells to the row
+        taskRow.appendChild(titleCell);
+        taskRow.appendChild(descriptionCell);
+        taskRow.appendChild(dueDateCell);
+        taskRow.appendChild(priorityCell);
+    
+        // Append the row to the task list table
+        var taskListTable = document.querySelector("#taskList table");
+        taskListTable.appendChild(taskRow);
+    
+        // Clear the form fields
+        document.getElementById("taskForm").reset();
+    
+        // Send data to the server
+        fetch('/addtask/', {
+            method: 'POST',
+            body: formData, // Use the FormData object as the body
+        })
+        .then(response => response.json())
+        .then(data => {
+            if ('error' in data) {
+                alert('Error: ' + data.error);
+            } else {
+                alert('Task added successfully!');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error.message);
+            alert('Error: Failed to add task');
+        });
+    }
+    
+
+
+    function updateUsername() {
+        var userId = 1; // Replace with the actual user ID or retrieve dynamically
+        var usernameElement = document.getElementById("username");
+
+        // Make an asynchronous request to Flask endpoint
+        fetch('/get-username/' + userId)
+            .then(response => response.json())
+            .then(data => {
+                // Update the username in the header
+                usernameElement.innerText = data.message;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    updateUsername();
+
+    function emp_details() {
+        window.location.href = '/empDetails';
+    }
+    
+</script>
+
+
+</body>
+</html>
